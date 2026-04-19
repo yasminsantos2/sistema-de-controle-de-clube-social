@@ -44,7 +44,7 @@ SELECT * FROM socios WHERE cpf = '55544433322';
 ### Passo 2: Adição de Dependentes
 **Ação:** Vincular familiares ao sócio criado. (Substitua `ID_DO_SOCIO` pelo ID gerado).
 ```sql
-INSERT INTO dependentes (socio_id, nome, parentesco) VALUES (ID_DO_SOCIO, 'Julia', 'Filha');
+INSERT INTO dependentes (socio_id, nome, parentesco) VALUES (ID_DO_SOCIO, 'Julia', 'Filha');      
 ```
 **Validação:** Verificar se o dependente aparece no relatório do sócio.
 ```sql
