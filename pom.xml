@@ -68,6 +68,15 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<configuration>
+					<url>jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:clube_social_db}</url>
+					<user>${DB_USERNAME:postgres}</user>
+					<password>${DB_PASSWORD:32213115}</password>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 

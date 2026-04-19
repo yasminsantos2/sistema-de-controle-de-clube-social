@@ -68,4 +68,23 @@ class CandidatoControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value("APROVADO"));
     }
+
+    @Test
+    @DisplayName("Deve buscar candidato por ID")
+    void deveBuscarPorId() throws Exception {
+        Candidato candidato = new Candidato();
+        candidato.setId(1L);
+        when(service.buscarPorId(1L)).thenReturn(candidato);
+
+        mockMvc.perform(get("/candidato/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(1));
+    }
+
+    @Test
+    @DisplayName("Deve deletar candidato")
+    void deveDeletar() throws Exception {
+        mockMvc.perform(delete("/candidato/1"))
+                .andExpect(status().isNoContent());
+    }
 }

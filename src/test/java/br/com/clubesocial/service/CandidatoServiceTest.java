@@ -55,6 +55,50 @@ class CandidatoServiceTest {
     }
 
     @Test
+    @DisplayName("Deve listar todos os candidatos")
+    void deveListarTodos() {
+        when(repository.findAll()).thenReturn(java.util.List.of(new Candidato(), new Candidato()));
+        
+        java.util.List<Candidato> lista = service.listarTodos();
+        
+        assertEquals(2, lista.size());
+        verify(repository, times(1)).findAll();
+    }
+
+    @Test
+    @DisplayName("Deve buscar candidato por ID com sucesso")
+    void deveBuscarPorId() {
+        Candidato candidato = new Candidato();
+        candidato.setId(1L);
+        when(repository.findById(1L)).thenReturn(Optional.of(candidato));
+
+        Candidato encontrado = service.buscarPorId(1L);
+
+        assertNotNull(encontrado);
+        assertEquals(1L, encontrado.getId());
+    }
+
+    @Test
+    @DisplayName("Deve lançar exceção ao buscar ID inexistente")
+    void deveLancarExcecaoIdInexistente() {
+        when(repository.findById(99L)).thenReturn(Optional.empty());
+
+        assertThrows(RuntimeException.class, () -> service.buscarPorId(99L));
+    }
+
+    @Test
+    @DisplayName("Deve deletar um candidato com sucesso")
+    void deveDeletarCandidato() {
+        Candidato candidato = new Candidato();
+        candidato.setId(1L);
+        when(repository.findById(1L)).thenReturn(Optional.of(candidato));
+
+        service.deletar(1L);
+
+        verify(repository, times(1)).delete(candidato);
+    }
+
+    @Test
     @DisplayName("Deve alterar o status de um candidato")
     void deveAlterarStatus() {
         Candidato candidato = new Candidato();
